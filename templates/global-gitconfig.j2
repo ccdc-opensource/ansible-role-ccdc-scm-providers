@@ -1,0 +1,10 @@
+# The contents of this file will be used on all platforms
+# Think of the consequences. Test changes.
+
+[init]
+defaultBranch = main
+
+{% if ansible_os_family == "Darwin" %}
+[credential]
+	helper = osxkeychain
+{% endif %}

@@ -1,0 +1,12 @@
+---
+- name: Install Git
+  homebrew:
+    name:
+      - git
+
+- name: Add global gitconfig configuration
+  template:
+    src: "global-gitconfig.j2"
+    dest: "{{ (ansible_machine == 'arm64') | ternary('/opt/homebrew', '/usr/local') }}/etc/gitconfig"
+    mode: 0644
+  become: true
