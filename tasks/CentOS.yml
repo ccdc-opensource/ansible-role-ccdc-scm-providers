@@ -10,9 +10,14 @@
 
 - name: Remove sclo-git25 envvars for all users
   file:
-    dest: /etc/profile.d/enable-sclo-git25.sh
+    path: /etc/profile.d/enable-sclo-git25.sh
     state: absent
-    mode: u=rwx,g=rx,o=rx
+  become: true
+
+- name: Remove sclo-git25 configuration
+  file:
+    path: /opt/rh/sclo-git25/root/etc/gitconfig
+    state: absent
   become: true
 
 - name: Add wandisco git repository package
@@ -32,6 +37,6 @@
 - name: Add global gitconfig configuration
   template:
     src: "global-gitconfig.j2"
-    dest: "/opt/rh/sclo-git25/root/etc/gitconfig"
+    dest: "/etc/gitconfig"
     mode: 0644
   become: true
