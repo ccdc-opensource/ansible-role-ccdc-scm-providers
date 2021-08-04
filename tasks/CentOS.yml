@@ -1,24 +1,30 @@
 ---
-- name: Install sclo-git25
+- name: Remove sclo-git25 packages
   yum:
     name:
+      - sclo-git25-git
       - sclo-git25
+    state: absent
+    use_backend: yum
+  become: true
+
+- name: Remove sclo-git25 envvars for all users
+  file:
+    dest: /etc/profile.d/enable-sclo-git25.sh
+    state: absent
+    mode: u=rwx,g=rx,o=rx
+  become: true
+
+- name: Add wandisco git repository package
+  yum:
+    name: http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm
     state: present
     use_backend: yum
   become: true
 
-- name: Enable sclo-git25 globally for all users
-  # See https://developers.redhat.com/blog/2014/03/19/permanently-enable-a-software-collection/
-  copy:
-    src: enable-sclo-git25.sh
-    dest: /etc/profile.d/enable-sclo-git25.sh
-    mode: u=rwx,g=rx,o=rx
-  become: true
-
-- name: Install git
+- name: Add wandisco git package
   yum:
-    name:
-      - sclo-git25-git
+    name: git>=2.20
     state: present
     use_backend: yum
   become: true
