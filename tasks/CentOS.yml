@@ -29,7 +29,7 @@
 
 - name: Add wandisco git package
   yum:
-    name: git>=2.20
+    name: git
     state: present
     use_backend: yum
   become: true
