@@ -1,6 +1,11 @@
 ---
+- name: Upgrade installed packages
+  win_chocolatey:
+    name: all
+    state: latest
+    
 - name: Install git
   win_chocolatey:
     name:
-      - git
+      - git.install
     state: present
