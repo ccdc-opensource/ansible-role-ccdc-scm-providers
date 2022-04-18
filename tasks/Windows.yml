@@ -3,7 +3,7 @@
   win_chocolatey:
     name: all
     state: latest
-    
+
 - name: Install git
   win_chocolatey:
     name:
