@@ -1,8 +1,8 @@
 ---
-- name: Upgrade installed packages
+- name: Ensure Chocolatey is installed
   win_chocolatey:
-    name: all
-    state: latest
+    name: chocolatey
+    state: present
 
 - name: Install git
   win_chocolatey:
