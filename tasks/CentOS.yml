@@ -1,6 +1,6 @@
 ---
 - name: Remove sclo-git25 packages
-  yum:
+  ansible.builtin.yum:
     name:
       - sclo-git25-git
       - sclo-git25
@@ -9,33 +9,33 @@
   become: true
 
 - name: Remove sclo-git25 envvars for all users
-  file:
+  ansible.builtin.file:
     path: /etc/profile.d/enable-sclo-git25.sh
     state: absent
   become: true
 
 - name: Remove sclo-git25 configuration
-  file:
+  ansible.builtin.file:
     path: /opt/rh/sclo-git25/root/etc/gitconfig
     state: absent
   become: true
 
 - name: Add wandisco git repository package
-  yum:
+  ansible.builtin.yum:
     name: http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm
     state: present
     use_backend: yum
   become: true
 
 - name: Add wandisco git package
-  yum:
+  ansible.builtin.yum:
     name: git
     state: present
     use_backend: yum
   become: true
 
 - name: Add global gitconfig configuration
-  template:
+  ansible.builtin.template:
     src: "global-gitconfig.j2"
     dest: "/etc/gitconfig"
     mode: 0644
