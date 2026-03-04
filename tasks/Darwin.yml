@@ -2,9 +2,11 @@
 - name: Install Homebrew + Git
   ansible.builtin.include_role:
     name: geerlingguy.mac.homebrew
-  vars:
-    homebrew_installed_packages:
-      - git
+  when: not cpp_buildmachine
+
+- community.general.homebrew:
+    name: git
+    state: present
   when: not cpp_buildmachine
 # This is overwritten by our group_vars (cpp.build-machines)
 
